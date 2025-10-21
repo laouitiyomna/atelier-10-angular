@@ -26,6 +26,7 @@ export class EvenementsComponent implements OnInit {
    this.evenementService.supprimerProduit(event); }
 
 
+
   ngOnInit(): void {
 
   }

@@ -1,0 +1,40 @@
+<div class="container">
+    <form class="form-inline">
+        <div class="form-group mx-sm-3 mb-2 mt-2 ">
+            <label>Nom Evenement en tapant</label>
+            <input #nom [(ngModel)]="searchTerm" name="searchTerm" class="form-control">
+        </div>
+    </form>
+
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <table>
+                @if(evenements.length>0){
+                <tr>
+                    <th>N:</th>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Lieu</th>
+                    <th>Date de l'Événement</th>
+                    <th>Organisateur</th>
+                    <th>Genre</th>
+                </tr>
+                }
+                @for (evenement of evenements | searchFilter: searchTerm; track evenement.idEvenement ;let index=$index) {
+                <tbody>
+                    <tr>
+                        <td>{{$index+1}}</td>
+                        <td>{{evenement.idEvenement}}</td>
+                        <td>{{evenement.nomEvenement}}</td>
+                        <td>{{evenement.lieu}}</td>
+                        <td>{{evenement.dateEvenement | date:'dd/MM/yyyy'}}</td>
+                        <td>{{evenement.organisateur}}</td>
+                        <td>{{evenement.Genre.nomGenre}}</td>
+                        
+                    </tr>
+                </tbody> }
+                @empty { <h1>Aucun produit trouvé !</h1> }
+            </table>
+        </div>
+    </div>
+</div>
