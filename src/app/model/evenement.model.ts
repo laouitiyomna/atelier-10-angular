@@ -7,4 +7,5 @@ export class Evenement {
   dateEvenement!: Date;
   organisateur!:string;
   Genre!: Genre;
+  email!: string;
 }

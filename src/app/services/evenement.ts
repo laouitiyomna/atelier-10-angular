@@ -7,6 +7,7 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class EvenementService {
+  
   evenements: Evenement[] = [];
   evenement!: Evenement;
   genres: Genre[] = [];
@@ -30,7 +31,8 @@ export class EvenementService {
     lieu: "Hammamet",
     dateEvenement: new Date("2025-07-12"),
     organisateur: "Ministère de la Culture",
-    Genre: { idGenre: 1, nomGenre: "Culturel" }
+    Genre: { idGenre: 1, nomGenre: "Culturel" },
+    email: "contact@culture.gov.tn"
   },
   {
     idEvenement: 2,
@@ -38,7 +40,8 @@ export class EvenementService {
     lieu: "Tunis",
     dateEvenement: new Date("2025-04-10"),
     organisateur: "Union des Éditeurs Tunisiens",
-    Genre: { idGenre: 1, nomGenre: "Culturel" }
+    Genre: { idGenre: 1, nomGenre: "Culturel" },
+    email: "info@editeurs.tn"
   },
 
   // 🎓 Académique
@@ -48,7 +51,8 @@ export class EvenementService {
     lieu: "Sousse",
     dateEvenement: new Date("2025-05-14"),
     organisateur: "Institut Supérieur des Sciences Appliquées",
-    Genre: { idGenre: 2, nomGenre: "Académique" }
+    Genre: { idGenre: 2, nomGenre: "Académique" },
+    email: "contact@issa-sousse.tn"
   },
 
   // 🏅 Sportif
@@ -58,7 +62,8 @@ export class EvenementService {
     lieu: "Sfax",
     dateEvenement: new Date("2025-10-05"),
     organisateur: "Fédération Tunisienne de Basketball",
-    Genre: { idGenre: 3, nomGenre: "Sportif" }
+    Genre: { idGenre: 3, nomGenre: "Sportif" },
+    email: "ftbb@basket.tn"
   },
   {
     idEvenement: 5,
@@ -66,7 +71,8 @@ export class EvenementService {
     lieu: "Tunis",
     dateEvenement: new Date("2025-11-18"),
     organisateur: "Fédération Tunisienne d’Athlétisme",
-    Genre: { idGenre: 3, nomGenre: "Sportif" }
+    Genre: { idGenre: 3, nomGenre: "Sportif" },
+    email: "contact@fta.tn"
   },
 
   // 🔬 Scientifique
@@ -76,7 +82,8 @@ export class EvenementService {
     lieu: "Monastir",
     dateEvenement: new Date("2025-09-09"),
     organisateur: "Ministère de l’Enseignement Supérieur et de la Recherche Scientifique",
-    Genre: { idGenre: 4, nomGenre: "Scientifique" }
+    Genre: { idGenre: 4, nomGenre: "Scientifique" },
+    email: "research@mesrs.tn"
   },
 
   // 🎨 Artistique
@@ -86,7 +93,8 @@ export class EvenementService {
     lieu: "La Marsa",
     dateEvenement: new Date("2025-05-10"),
     organisateur: "Galerie Le Violon Bleu",
-    Genre: { idGenre: 5, nomGenre: "Artistique" }
+    Genre: { idGenre: 5, nomGenre: "Artistique" },
+    email: "info@violonbleu.tn"
   },
   {
     idEvenement: 8,
@@ -94,9 +102,11 @@ export class EvenementService {
     lieu: "Sousse",
     dateEvenement: new Date("2025-08-22"),
     organisateur: "Association Culture et Lumière",
-    Genre: { idGenre: 5, nomGenre: "Artistique" }
+    Genre: { idGenre: 5, nomGenre: "Artistique" },
+    email: "contact@culture-lumiere.tn"
   }
 ];
+
 
 }
 
@@ -119,13 +129,12 @@ export class EvenementService {
   consulterEvenement(id: number): Evenement { this.evenement = this.evenements.find(p => p.idEvenement == id)!; return this.evenement; }
 
   updateEvenement(event: Evenement) {
-    
-    const index = this.evenements.indexOf(event, 0);
-    if (index > -1) {
-      this.evenements.splice(index, 1); //supprimer l'ancien éléments
-      this.evenements.splice(index, 0, event); // insérer le nouvel élément
-    }
+  const index = this.evenements.findIndex(e => e.idEvenement === event.idEvenement);
+  if (index !== -1) {
+    this.evenements[index] = event; // met à jour directement l'objet existant
   }
+}
+
 
 
   listeGenres(): Genre[]

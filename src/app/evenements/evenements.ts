@@ -12,6 +12,9 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./evenement.css']
   
 })
+
+
+
 export class EvenementsComponent implements OnInit { 
   evenements : Evenement []=[]; 
 

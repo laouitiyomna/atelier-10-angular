@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="col-sm-4 col-md-4 col-lg-4 mb-4"> <label>Categories </label> 
+    <div class="col-sm-4 col-md-4 col-lg-4 mb-4"> <label>Genres </label> 
         <select
             class="form-control form-control-lg" id="IdGenre" name="IdGenre" [(ngModel)]= "IdGenre"
             (change)="onChange()"> @for(cat of genres;track cat.idGenre) { <option value="{{cat.idGenre}}">

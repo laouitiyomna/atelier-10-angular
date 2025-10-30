@@ -11,7 +11,8 @@
                     <th>Date de l'Événement</th>
                     <th>Organisateur</th>
                     <th>Genre</th>
-                </tr>
+                    <th>Email</th>
+                    </tr>
                 }
                 @for (evenement of evenements; track evenement.idEvenement ;let index=$index) {
                 <tbody>
@@ -23,6 +24,7 @@
                         <td>{{evenement.dateEvenement | date:'dd/MM/yyyy'}}</td>
                         <td>{{evenement.organisateur}}</td>
                         <td>{{evenement.Genre.nomGenre}}</td>
+                        <td>{{evenement.email}}</td>
                         <td><a class="btn btn-danger" (click)="supprimerEvenement(evenement)">Supprimer</a></td>
                         <td><a class="btn btn-success" [routerLink]="['/updateEvenement',evenement.idEvenement]">Modifier</a></td>
                     </tr>

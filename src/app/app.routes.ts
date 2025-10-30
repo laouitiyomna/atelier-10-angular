@@ -1,9 +1,11 @@
 import { Routes } from '@angular/router';
 import { EvenementsComponent } from './evenements/evenements';
 import { AddEvenementComponent } from './add-evenement/add-evenement';
-import { UpdateEvenementComponent } from './update-evenement/update-evenement';
 import { RechercheParGenreComponent } from './recherche-par-genre/recherche-par-genre';
 import { RechercheParNom } from './recherche-par-nom/recherche-par-nom';
+import { Register } from './register/register';
+import { Login } from './login/login';
+import { UpdateEvenementComponent } from './update-evenement/update-evenement';
 
 export const routes: Routes = [
     {path: "evenements", component : EvenementsComponent},
@@ -11,5 +13,7 @@ export const routes: Routes = [
     {path: "updateEvenement/:id", component: UpdateEvenementComponent},
     {path: "rechercheParGenre", component : RechercheParGenreComponent},
     {path: "rechercheParNom", component : RechercheParNom},
+    {path:'register', component:Register},
+    {path: 'login', component: Login},
     {path: "", redirectTo: "evenements", pathMatch: "full"}
 ];

@@ -1,30 +1,74 @@
 <div class="container">
-    <div>
-        <h2>Modifier un Produit :</h2>
+  <div>
+    <h2>Modifier un Événement :</h2>
+  </div>
+
+  <form [formGroup]="myForm" (ngSubmit)="updateEvenement()">
+    <div hidden class="col-sm-2 col-md-2 col-lg-2">
+      <label>ID Événement</label>
+      <input type="text" formControlName="idEvenement" class="form-control" />
     </div>
-    <form>
-        <div hidden class="col-sm-2 col-md-2 col-lg-2"> <label>ID Produit</label> <input type="text"
-                [(ngModel)]="currentEvenement.idEvenement" name="idEvenement" class="form-control"> </div>
 
-        <div class="col-sm-4 col-md-4 col-lg-4"> <label>Nom Produit</label> <input type="text"
-                [(ngModel)]="currentEvenement.nomEvenement" name="nomEvenement" class="form-control"> </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Nom Événement</label>
+      <input type="text" formControlName="nomEvenement" class="form-control" />
+      <span *ngIf="myForm.get('nomEvenement')?.hasError('required') && myForm.get('nomEvenement')?.touched" class="text-danger">
+        Le nom est obligatoire !
+      </span>
+      <span *ngIf="myForm.get('nomEvenement')?.hasError('minlength') && myForm.get('nomEvenement')?.touched" class="text-danger">
+        Le nom doit contenir au moins 3 caractères !
+      </span>
+    </div>
 
-        <div class="col-sm-2 col-md-2 col-lg-2"> <label>Prix Produit</label> <input type="string"
-                [(ngModel)]="currentEvenement.lieu" name="lieu" class="form-control"> </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Lieu</label>
+      <input type="text" formControlName="lieu" class="form-control" />
+      <span *ngIf="myForm.get('lieu')?.hasError('required') && myForm.get('lieu')?.touched" class="text-danger">
+        Le lieu est obligatoire !
+      </span>
+    </div>
 
-        <div class="col-sm-4 col-md-4 col-lg-4"> <label>Date Evenement</label> <input type="date"
-                [ngModel]="currentEvenement.dateEvenement | date: 'yyyy-MM-dd'"
-                (ngModelChange)=" currentEvenement.dateEvenement= $event" name="dateEvenement" class="form-control">
-        </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Date Événement</label>
+      <input type="date" formControlName="dateEvenement" class="form-control" />
+      <span *ngIf="myForm.get('dateEvenement')?.hasError('required') && myForm.get('dateEvenement')?.touched" class="text-danger">
+        La date est obligatoire !
+      </span>
+    </div>
 
-        <div class="col-sm-2 col-md-2 col-lg-2"> <label>Organisateur</label> <input type="text"
-                [(ngModel)]="currentEvenement.organisateur" name="organisateur" class="form-control"> </div>
-<div class="col-sm-2 col-md-2 col-lg-2"> <label>Genre</label>
-        <select class="form-control form-control-lg" id="idGenre" name="idGenre" [(ngModel)]="updatedGenreId"> @for(cat of
-            genres; track cat.idGenre) { <option [value]="cat.idGenre"> {{cat.nomGenre}} </option> } </select></div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Organisateur</label>
+      <input type="text" formControlName="organisateur" class="form-control" />
+      <span *ngIf="myForm.get('organisateur')?.hasError('required') && myForm.get('organisateur')?.touched" class="text-danger">
+        L'organisateur est obligatoire !
+      </span>
+    </div>
 
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Email</label>
+      <input type="email" formControlName="email" class="form-control" />
+      <span *ngIf="myForm.get('email')?.hasError('required') && myForm.get('email')?.touched" class="text-danger">
+        L'email est obligatoire !
+      </span>
+      <span *ngIf="myForm.get('email')?.hasError('email') && myForm.get('email')?.touched" class="text-danger">
+        L'email n'est pas valide !
+      </span>
+    </div>
 
-        <div class="mt-2"> <button type="submit" (click)="updateEvenement()" class="btn btn-success">Modifer</button>
-        </div>
-    </form>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Genre</label>
+      <select class="form-control form-control-lg" formControlName="idGenre">
+        <option *ngFor="let genre of genres" [value]="genre.idGenre">{{ genre.nomGenre }}</option>
+      </select>
+      <span *ngIf="myForm.get('idGenre')?.hasError('required') && myForm.get('idGenre')?.touched" class="text-danger">
+        Le genre est obligatoire !
+      </span>
+    </div>
+
+    <div class="mt-2">
+      <button type="submit" class="btn btn-success" [disabled]="myForm.invalid">
+        Modifier
+      </button>
+    </div>
+  </form>
 </div>
