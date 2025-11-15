@@ -25,8 +25,9 @@
                         <td>{{evenement.organisateur}}</td>
                         <td>{{evenement.Genre.nomGenre}}</td>
                         <td>{{evenement.email}}</td>
+                        @if(auth.isAdmin()) {
                         <td><a class="btn btn-danger" (click)="supprimerEvenement(evenement)">Supprimer</a></td>
-                        <td><a class="btn btn-success" [routerLink]="['/updateEvenement',evenement.idEvenement]">Modifier</a></td>
+                        <td><a class="btn btn-success" [routerLink]="['/updateEvenement',evenement.idEvenement]">Modifier</a></td>}
                     </tr>
                 </tbody> }
                 @empty { <h1>Aucun produit trouvé !</h1> }

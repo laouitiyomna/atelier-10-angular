@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Evenement } from '../model/evenement.model';
 import { EvenementService } from '../services/evenement';
 import { RouterLink } from '@angular/router';
+import { Auth } from '../services/auth';
 
 @Component({
   selector: 'app-evenements',
@@ -19,7 +20,9 @@ export class EvenementsComponent implements OnInit {
   evenements : Evenement []=[]; 
 
 
-  constructor(private evenementService: EvenementService )
+  constructor(private evenementService: EvenementService,
+    public auth: Auth
+   )
    { this.evenements = evenementService.listeEvenements(); }
 
   supprimerEvenement(event: Evenement) { 
