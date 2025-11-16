@@ -15,7 +15,7 @@ import { Genre } from '../model/genre.model';
 })
 export class UpdateEvenementComponent implements OnInit {
   myForm!: FormGroup;
-  genres!: Genre[];
+ genres: Genre[] = [];
   currentEvenement!: Evenement;
 
   constructor(

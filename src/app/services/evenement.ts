@@ -135,12 +135,6 @@ export class EvenementService {
   }
 }
 
-
-
-  listeGenres(): Genre[]
-   { return this.genres; }
-
-
   consulterGenre(id:number): Genre{ return this.genres.find(cat => cat.idGenre == id)!; }
 
    rechercherParGenre(idGenre: number): Evenement[] {
@@ -153,5 +147,21 @@ export class EvenementService {
     });
     return this.evenementsRecherche;
   }
+
+
+listeGenres() {
+  return this.genres;
+}
+
+ajouterGenre(g: Genre) {
+  this.genres.push(g);
+}
+
+updateGenre(g: Genre) {
+  const index = this.genres.findIndex(x => x.idGenre === g.idGenre);
+  if (index !== -1) {
+    this.genres[index] = g;
+  }
+}
 
 }

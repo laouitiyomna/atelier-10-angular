@@ -1,0 +1,28 @@
+<form>
+
+  <!-- ID visible seulement en mode ajout -->
+  <div [hidden]="!ajout">
+    <label>ID Genre</label>
+    <input type="number"
+           [(ngModel)]="localGenre.idGenre"
+           name="idGenre"
+           class="form-control w-25"
+           placeholder="ID du genre">
+  </div>
+
+  <div class="mt-2">
+    <label>Nom Genre</label>
+    <input type="text"
+           [(ngModel)]="localGenre.nomGenre"
+           name="nomGenre"
+           class="form-control"
+           placeholder="Nom du genre...">
+  </div>
+
+  <button class="btn btn-success mt-3"
+          [disabled]="!localGenre.nomGenre || (ajout && !localGenre.idGenre)"
+          (click)="saveGenre()">
+      {{ ajout ? 'Ajouter' : 'Modifier' }}
+  </button>
+
+</form>

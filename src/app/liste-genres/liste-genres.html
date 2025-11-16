@@ -1,0 +1,31 @@
+<div class="row">
+
+  <div class="col-md-4">
+    <app-update-genre
+        [genre]="updatedGen"
+        (genreUpdated)="genreUpdated($event)"
+        [ajout]="ajout">
+    </app-update-genre>
+  </div>
+
+  <div class="col-md-8">
+    <table class="table table-striped mt-3">
+      <tr>
+        <th>ID</th>
+        <th>Nom Genre</th>
+        <th>Actions</th>
+      </tr>
+
+      @for(g of genres; track g.idGenre) {
+      <tr>
+         <td>{{g.idGenre}}</td>
+         <td>{{g.nomGenre}}</td>
+         <td>
+            <button class="btn btn-success" (click)="selectGenre(g)">Editer</button>
+         </td>
+      </tr>
+      }
+    </table>
+  </div>
+
+</div>

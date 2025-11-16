@@ -1,16 +1,21 @@
-import { TestBed } from '@angular/core/testing';
+import { Evenement } from '../model/evenement.model';
+import { Genre } from '../model/genre.model';
 
-import { Evenement } from './evenement';
+describe('Evenement model', () => {
+  it('should create an Evenement instance', () => {
+    const genre: Genre = { idGenre: 1, nomGenre: 'Culturel' };
+    
+    const evenement = new Evenement();
+    evenement.idEvenement = 1;
+    evenement.nomEvenement = 'Festival de Musique';
+    evenement.lieu = 'Tunis';
+    evenement.dateEvenement = new Date('2025-07-12');
+    evenement.organisateur = 'Ministère de la Culture';
+    evenement.Genre = genre;
+    evenement.email = 'contact@culture.gov.tn';
 
-describe('Evenement', () => {
-  let service: Evenement;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(Evenement);
-  });
-
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(evenement).toBeTruthy();
+    expect(evenement.nomEvenement).toBe('Festival de Musique');
+    expect(evenement.Genre.nomGenre).toBe('Culturel');
   });
 });
