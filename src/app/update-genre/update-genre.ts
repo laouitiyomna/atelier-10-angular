@@ -1,6 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { Genre } from '../model/genre.model';
 import { FormsModule } from '@angular/forms';
+import { Auth } from '../services/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-genre',
@@ -26,4 +28,13 @@ export class UpdateGenre implements OnChanges {
   saveGenre() {
     this.genreUpdated.emit({ ...this.localGenre });
   }
+
+
+  ngOnInit(): void {
+    const loggedIn = this.auth.isloggedIn || localStorage.getItem('isloggedIn') === 'true';
+  if (!loggedIn) {
+    this.router.navigate(['/login']);
+  }
+  }
+  constructor(public auth: Auth, private router: Router) {}
 }

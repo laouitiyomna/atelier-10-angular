@@ -38,15 +38,20 @@ export class ListeGenres implements OnInit {
   }
 
   genreUpdated(updated: Genre) {
+  if (this.ajout) {
+    // Générer un id unique
+    updated.idGenre = this.genres.length > 0 
+      ? Math.max(...this.genres.map(g => g.idGenre)) + 1 
+      : 1;
 
-    if (this.ajout) {
-      this.evenementService.ajouterGenre(updated);
-    } else {
-      this.evenementService.updateGenre(updated);
-    }
-
-    this.chargerGenres();
+    // Ajouter via le service (le tableau du service est le même que this.genres)
+    this.evenementService.ajouterGenre(updated);
+  } else {
+    this.evenementService.updateGenre(updated);
   }
+
+  this.resetForm();
+}
 
   resetForm() {
     this.updatedGen = { idGenre: 0, nomGenre: "" };

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Evenement } from '../model/evenement.model';
-import { RouterLink } from '@angular/router';
+import { Route, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { EvenementService } from '../services/evenement';
 import { Genre } from '../model/genre.model';
 import { FormsModule } from '@angular/forms';
+import { Auth } from '../services/auth';
 
 @Component({
   selector: 'app-recherche-par-genre',
@@ -17,7 +18,7 @@ export class RechercheParGenreComponent implements OnInit {
   IdGenre!: number;
   genres:Genre[]=[];
 
-  constructor(private evenementService: EvenementService ) { 
+  constructor(private evenementService: EvenementService , public auth: Auth, private router: Router) { 
     this.genres=evenementService.listeGenres();
     this.evenements = [];
   } 
@@ -35,7 +36,10 @@ export class RechercheParGenreComponent implements OnInit {
 this.evenements=this.evenementService.rechercherParGenre(this.IdGenre);}}
 
 ngOnInit(): void {
-  
-}
+    const loggedIn = this.auth.isloggedIn || localStorage.getItem('isloggedIn') === 'true';
+  if (!loggedIn) {
+    this.router.navigate(['/login']);
+  }
+  }
 
 }

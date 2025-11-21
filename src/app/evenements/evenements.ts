@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Evenement } from '../model/evenement.model';
 import { EvenementService } from '../services/evenement';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../services/auth';
 
 @Component({
@@ -21,7 +21,7 @@ export class EvenementsComponent implements OnInit {
 
 
   constructor(private evenementService: EvenementService,
-    public auth: Auth
+    public auth: Auth, private router: Router
    )
    { this.evenements = evenementService.listeEvenements(); }
 
@@ -34,6 +34,9 @@ export class EvenementsComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    const loggedIn = this.auth.isloggedIn || localStorage.getItem('isloggedIn') === 'true';
+  if (!loggedIn) {
+    this.router.navigate(['/login']);
+  }
   }
 }

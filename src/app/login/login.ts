@@ -1,30 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../model/user.model';
 import { FormsModule } from '@angular/forms';
-import { Auth } from '../services/auth';
 import { Router } from '@angular/router';
+import { Auth } from '../services/auth';
+import { User } from '../model/user.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  standalone: true,
+  imports: [FormsModule,CommonModule],
   templateUrl: './login.html',
-  styles: ``
+  styles: [``]
 })
 export class Login implements OnInit {
-  user = new User();
-  erreur=0;
+  user: User = new User();
+  erreur: number = 0;
 
   constructor(private authService: Auth, private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
 
+  onLoggedin() {
+    const isValidUser = this.authService.SignIn(this.user);
+    if (isValidUser) {
+      this.router.navigate(['/']); 
+    } else {
+      this.erreur = 1;
+    }
   }
-
-  onLoggedin() { console.log(this.user);
-     let isValidUser: Boolean = this.authService.SignIn(this.user);
-      if (isValidUser) this.router.navigate(['/']); 
-      else {
-        //alert('Login ou mot de passe incorrecte!');
-        this.erreur=1;}
-      }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from '../model/user.model';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,59 +9,55 @@ export class Auth {
 
   constructor(private router: Router) { }
 
+  // Liste des utilisateurs
+  users: User[] = [
+    { username: "admin", password: "123", roles: ['ADMIN'] },
+    { username: "yomna", password: "123", roles: ['USER'] }
+  ];
 
-  users: User[] = [{ "username": "admin", "password": "123", "roles": ['ADMIN'] },
-  { "username": "yomna", "password": "123", "roles": ['USER'] }];
+  public loggedUser: string = '';
+  public isloggedIn: boolean = false;
+  public roles: string[] = [];
 
-  public loggedUser!: string;
-  public isloggedIn: Boolean = false;
-  public roles!: string[];
+  // Login
+  SignIn(user: User): boolean {
+    const foundUser = this.users.find(u => u.username === user.username && u.password === user.password);
+    if (foundUser) {
+      this.loggedUser = foundUser.username;
+      this.isloggedIn = true;
+      this.roles = foundUser.roles;
+      localStorage.setItem('loggedUser', this.loggedUser);
+      localStorage.setItem('isloggedIn', 'true');
+      return true;
+    }
+    return false;
+  }
 
+  // Logout
   logout() {
+    this.loggedUser = '';
+    this.roles = [];
     this.isloggedIn = false;
-    this.loggedUser = undefined!;
-    this.roles = undefined!;
     localStorage.removeItem('loggedUser');
-    localStorage.setItem('isloggedIn', String(this.isloggedIn));
+    localStorage.setItem('isloggedIn', 'false');
     this.router.navigate(['/login']);
   }
-  SignIn(user: User): Boolean {
-    let validUser: Boolean = false;
-    this.users.forEach((curUser) => {
-      if (user.username == curUser.username && user.password == curUser.password) {
-        validUser = true;
-        this.loggedUser = curUser.username;
-        this.isloggedIn = true;
-        this.roles = curUser.roles;
-        localStorage.setItem('loggedUser', this.loggedUser);
-        localStorage.setItem('isloggedIn', String(this.isloggedIn));
-      }
-    }); return validUser;
-  }
-  isAdmin(): Boolean {
-    if (!this.roles) //this.roles== undefiened 
-      return false;
-    return (this.roles.indexOf('ADMIN') > -1);
+
+  // Vérifier si admin
+  isAdmin(): boolean {
+    return this.roles.includes('ADMIN');
   }
 
-
-
+  // Récupérer utilisateur depuis localStorage
   setLoggedUserFromLocalStorage(login: string) {
     this.loggedUser = login;
     this.isloggedIn = true;
     this.getUserRoles(login);
+    localStorage.setItem('isloggedIn', 'true');
   }
 
-  
   getUserRoles(username: string) {
-    this.users.forEach((curUser) => {
-      if (curUser.username == username) {
-        this.roles = curUser.roles;
-      }
-    });
+    const user = this.users.find(u => u.username === username);
+    this.roles = user ? user.roles : [];
   }
-
-
-
-
 }

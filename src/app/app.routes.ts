@@ -11,9 +11,9 @@ import { evenementGuard } from './evenement-guard';
 import { ListeGenres } from './liste-genres/liste-genres';
 
 export const routes: Routes = [
-    {path: "evenements", component : EvenementsComponent},
+    {path: "evenements", component : EvenementsComponent },
     {path: "add-evenement", component : AddEvenementComponent, canActivate:[evenementGuard]},
-    {path: "updateEvenement/:id", component: UpdateEvenementComponent},
+    {path: "updateEvenement/:id", component: UpdateEvenementComponent, canActivate:[evenementGuard]},
     {path: "listeGenres", component : ListeGenres},
     {path: "rechercheParGenre", component : RechercheParGenreComponent},
     {path: "rechercheParNom", component : RechercheParNom},
